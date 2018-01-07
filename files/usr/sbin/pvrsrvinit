@@ -1,0 +1,74 @@
+#!/bin/sh
+# Script to initialize the SGX userspace driver based on the SGX core revision
+#
+activate_driver_for_core_rev()
+{
+	SGX_CORE_REV=$1
+	for LIB in \
+		libpvrPVR2D_FLIPWSEGL \
+		libpvrPVR2D_BLITWSEGL \
+		libpvrPVR2D_DRI2WSEGL \
+		libpvrPVR2D_FRONTWSEGL \
+		libpvrPVR2D_X11WSEGL \
+		libpvr2d \
+		libsrv_um \
+		libPVRScopeServices \
+		libglslcompiler \
+		libIMGegl \
+		libEGL \
+		libOpenVG \
+		libOpenVGU \
+		libGLESv2 \
+		libGLES_CM; do
+		# Point the link at the correct library
+		if [ "$(readlink /usr/lib/$LIB.so)" != "${LIB}_r${SGX_CORE_REV}.so" ]; then
+			ln -fs "${LIB}_r${SGX_CORE_REV}.so" "/usr/lib/$LIB.so"
+		fi
+		# Delete the unneeded libraries
+		for LIBFILE in /usr/lib/${LIB}_r*.so; do
+			if [ "$(readlink /usr/lib/$LIB.so)" != "$(basename $LIBFILE)" ]; then
+				rm -f "$LIBFILE"
+			fi
+		done
+	done
+
+	for BIN in pvrsrvinit; do
+		# Delete the unneeded binaries
+		for BINFILE in /usr/sbin/${BIN}_r*; do
+			if [ "$(basename $BINFILE)" != "${BIN}_r${SGX_CORE_REV}" ]; then
+				rm -f "$BINFILE"
+			fi
+		done
+	done
+}
+
+# Cannot bring up the hardware under scratchbox
+test -f /targets/links/scratchbox.config && exit 0
+
+modprobe pvrsrvkm
+
+if [ \! -f /proc/pvr/version ]; then
+	echo "SGX driver failed to initialize" > /dev/console
+	exit 1
+fi
+
+SGX_CORE_REV=$(grep -Eo "SGX revision = ([0-9][.][0-9][.][0-9])" \
+	       /proc/pvr/version | cut -d= -f 2 | tr -d ". ")
+
+if [ "$SGX_CORE_REV" = "" ]; then
+	echo "Unable to determine SGX core revision" > /dev/console
+	exit 1
+fi
+
+if [ \! -f /usr/sbin/pvrsrvinit_r$SGX_CORE_REV ]; then
+	echo "Unsupported SGX core revision" > /dev/console
+	exit 1
+fi
+
+# Activate the correct SGX libraries and binaries based on the chip revision
+if [ "$(readlink /usr/lib/libsrv_um.so)" != "libsrv_um_r${SGX_CORE_REV}.so" -o \
+     "$1" == "--force" ]; then
+	activate_driver_for_core_rev $SGX_CORE_REV
+fi
+
+exec /usr/sbin/pvrsrvinit_r$SGX_CORE_REV
