@@ -3,6 +3,8 @@
 
 build:
 	$(MAKE) $(DEB_HOST_ARCH)
+	mkdir -p debian/tmp
+	cp -ra files debian/tmp/files
 
 build-arch: build
 
