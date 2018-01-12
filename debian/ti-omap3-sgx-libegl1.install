@@ -1,0 +1,3 @@
+files/usr/lib/libEGL*.so usr/lib
+files/usr/lib/libIMGegl*.so usr/lib
+files/usr/lib/libpvr*EGL*.so usr/lib

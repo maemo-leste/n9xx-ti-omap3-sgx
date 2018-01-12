@@ -1,0 +1,7 @@
+files/usr/share/* usr/share
+files/usr/sbin/* usr/sbin
+files/usr/lib/libglslcompiler*.so usr/lib
+files/usr/lib/libOpenVG*.so usr/lib
+files/usr/lib/libpvr2d*.so usr/lib
+files/usr/lib/libPVRScope*.so usr/lib
+files/usr/lib/libsrv*.so usr/lib

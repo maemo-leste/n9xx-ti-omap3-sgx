@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+build:
+	$(MAKE) $(DEB_HOST_ARCH)
+
+build-arch: build
+
+%:
+	dh $@
