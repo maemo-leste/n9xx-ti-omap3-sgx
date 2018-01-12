@@ -2,19 +2,20 @@ Source: n9xx-ti-omap3-sgx
 Section: n900
 Priority: optional
 Maintainer: Ivan J. <parazyd@dyne.org>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9), libxfixes-dev
 Standards-Version: 3.7.2
 
 Package: ti-omap3-sgx
 Architecture: armhf armel
 Depends: ti-omap3-sgx-libegl1 (= ${binary:Version}),
  ti-omap3-sgx-libgles1 (= ${binary:Version}),
- ti-omap3-sgx-libgles2 (= ${binary:Version})
+ ti-omap3-sgx-libgles2 (= ${binary:Version}),
+ ${shlibs:Depends}
 Description: PowerVR blob metapackage
 
 Package: ti-omap3-sgx-dev
 Architecture: armhf armel
-Depends: ti-omap3-sgx (= ${binary:Version})
+Depends: ti-omap3-sgx (= ${binary:Version}), ${shlibs:Depends}
 Description: Development headers for ti-omap3-sgx
 
 Package: ti-omap3-sgx-libegl1
@@ -22,6 +23,7 @@ Architecture: armhf armel
 Replaces: libegl1-x11
 Conflicts: libegl1-x11
 Provides: libegl1-x11
+Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the EGL API
 
 Package: ti-omap3-sgx-libgles1
@@ -29,6 +31,7 @@ Architecture: armhf armel
 Replaces: libgles1-mesa
 Conflicts: libgles1-mesa
 Provides: libgles1-mesa
+Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the GLESv1 API
 
 Package: ti-omap3-sgx-libgles2
@@ -36,4 +39,5 @@ Architecture: armhf armel
 Replaces: libgles2-mesa
 Conflicts: libgles2-mesa
 Provides: libgles2-mesa
+Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the GLESv2 API
