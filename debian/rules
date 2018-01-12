@@ -1,12 +1,41 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+mainpkg = debian/ti-omap3-sgx
+devpkg = debian/ti-omap3-sgx-dev
+eglpkg = debian/ti-omap3-sgx-libegl1
+gles1pkg = debian/ti-omap3-sgx-libgles1
+gles2pkg = debian/ti-omap3-sgx-libgles2
+
+clean:
+	dh_testdir
+	dh_clean
+
 build:
 	$(MAKE) $(DEB_HOST_ARCH)
-	mkdir -p debian/tmp
-	cp -ra files debian/tmp/files
+	mkdir -p $(mainpkg)/usr/lib
+	cp -rva files/usr/share $(mainpkg)
+	cp -rva files/usr/sbin $(mainpkg)
+	cp -rva files/usr/lib/libglslcompiler*.so $(mainpkg)/usr/lib
+	cp -rva files/usr/lib/libOpenVG*.so $(mainpkg)/usr/lib
+	cp -rva files/usr/lib/libpvr2d*.so $(mainpkg)/usr/lib
+	cp -rva files/usr/lib/libPVRScope*.so $(mainpkg)/usr/lib
+	cp -rva files/usr/lib/libsrv*.so $(mainpkg)/usr/lib
+	mkdir -p $(devpkg)/usr/include
+	cp -rva files/usr/include/* $(devpkg)/usr/include
+	mkdir -p $(eglpkg)/usr/lib
+	cp -rva files/usr/lib/libEGL*.so $(eglpkg)/usr/lib
+	cp -rva files/usr/lib/libIMGegl*.so $(eglpkg)/usr/lib
+	cp -rva files/usr/lib/libpvr*EGL*.so $(eglpkg)/usr/lib
+	mkdir -p $(gles1pkg)/usr/lib
+	cp -rva files/usr/lib/libGLES_*.so $(gles1pkg)/usr/lib
+	mkdir -p $(gles2pkg)/usr/lib
+	cp -rva files/usr/lib/libGLESv2*.so $(gles2pkg)/usr/lib
 
 build-arch: build
+
+override_dh_strip:
+	@echo "Skipping dh_strip"
 
 %:
 	dh $@
