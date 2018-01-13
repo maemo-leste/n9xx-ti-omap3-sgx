@@ -16,28 +16,31 @@ Description: PowerVR blob metapackage
 Package: ti-omap3-sgx-dev
 Architecture: armhf armel
 Depends: ti-omap3-sgx (= ${binary:Version}), ${shlibs:Depends}
+Provides: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
+Replaces: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
+Conflicts: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
 Description: Development headers for ti-omap3-sgx
 
 Package: ti-omap3-sgx-libegl1
 Architecture: armhf armel
-Replaces: libegl1-mesa
-Conflicts: libegl1-mesa
-Provides: libegl1-mesa, libegl1-x11, libgl1, libglu1-mesa, libgl-mesa-dri
+Replaces: libegl1, libegl1-mesa, libegl1-mesa-dbg, libegl1-mesa-drivers, libegl1-mesa-drivers-dbg, libegl1-x11, libwayland-egl1, libwayland-egl1-mesa, libwayland-egl1-mesa-dbg
+Conflicts: libegl1, libegl1-mesa, libegl1-mesa-dbg, libegl1-mesa-drivers, libegl1-mesa-drivers-dbg, libegl1-x11, libwayland-egl1, libwayland-egl1-mesa, libwayland-egl1-mesa-dbg
+Provides: libegl1, libegl1-mesa, libegl1-mesa-dbg, libegl1-mesa-drivers, libegl1-mesa-drivers-dbg, libegl1-x11, libwayland-egl1, libwayland-egl1-mesa, libwayland-egl1-mesa-dbg
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the EGL API
 
 Package: ti-omap3-sgx-libgles1
 Architecture: armhf armel
-Replaces: libgles1-mesa
-Conflicts: libgles1-mesa
-Provides: libgles1-mesa
+Replaces: libgles1, libgles1-mesa, libgles1-mesa-dbg
+Conflicts: libgles1, libgles1-mesa, libgles1-mesa-dbg
+Provides: libgles1, libgles1-mesa, libgles1-mesa-dbg
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the GLESv1 API
 
 Package: ti-omap3-sgx-libgles2
 Architecture: armhf armel
-Replaces: libgles2-mesa
-Conflicts: libgles2-mesa
-Provides: libgles2-mesa, libgles2
+Replaces: libgles2, libgles2-mesa, libgles2-mesa-dbg
+Conflicts: libgles2, libgles2-mesa, libgles2-mesa-dbg
+Provides: libgles2, libgles2-mesa, libgles2-mesa-dbg
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the GLESv2 API
