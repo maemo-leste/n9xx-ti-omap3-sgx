@@ -20,9 +20,9 @@ Description: Development headers for ti-omap3-sgx
 
 Package: ti-omap3-sgx-libegl1
 Architecture: armhf armel
-Replaces: libegl1-x11
-Conflicts: libegl1-x11
-Provides: libegl1-x11
+Replaces: libegl1-mesa
+Conflicts: libegl1-mesa
+Provides: libegl1-mesa, libegl1-x11, libgl1, libglu1-mesa, libgl-mesa-dri
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the EGL API
 
@@ -38,6 +38,6 @@ Package: ti-omap3-sgx-libgles2
 Architecture: armhf armel
 Replaces: libgles2-mesa
 Conflicts: libgles2-mesa
-Provides: libgles2-mesa
+Provides: libgles2-mesa, libgles2
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the GLESv2 API
