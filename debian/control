@@ -16,9 +16,9 @@ Description: PowerVR blob metapackage
 Package: ti-omap3-sgx-dev
 Architecture: armhf armel
 Depends: ti-omap3-sgx (= ${binary:Version}), ${shlibs:Depends}
-Provides: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
-Replaces: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
-Conflicts: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev
+Provides: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev, opengles-sgx-img-common-dev
+Replaces: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev, opengles-sgx-img-common-dev
+Conflicts: libegl1-mesa-dev, libgles1-mesa-dev, libgles2-mesa-dev, opengles-sgx-img-common-dev
 Description: Development headers for ti-omap3-sgx
 
 Package: ti-omap3-sgx-libegl1
