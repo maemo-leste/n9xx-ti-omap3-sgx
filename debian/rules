@@ -37,5 +37,8 @@ build-arch: build
 override_dh_strip:
 	@echo "Skipping dh_strip"
 
+override_dh_installinit:
+	dh_installinit --name powervr --no-start
+
 %:
 	dh $@
