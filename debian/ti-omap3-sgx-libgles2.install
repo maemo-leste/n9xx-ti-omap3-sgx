@@ -1,1 +1,2 @@
 files/usr/lib/libGLESv2*.so usr/lib
+files/usr/lib/libGLESv2*.so.2 usr/lib
