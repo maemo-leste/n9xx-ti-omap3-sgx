@@ -2,3 +2,5 @@
 
 #rc-update del powervr default
 rc-update add powervr sysinit
+
+ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3

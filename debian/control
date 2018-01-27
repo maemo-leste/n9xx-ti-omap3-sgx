@@ -23,9 +23,9 @@ Description: Development headers for ti-omap3-sgx
 
 Package: ti-omap3-sgx-libegl1
 Architecture: armhf armel
-Replaces: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11
-Conflicts: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11
-Provides: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11
+Replaces: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11, libgl1-mesa-glx
+Conflicts: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11, libgl1-mesa-glx
+Provides: libegl1, libegl1-mesa (= 13.0.6-1+b2), libegl1-x11, libgl1-mesa-glx
 Depends: ${shlibs:Depends}
 Description: PowerVR implementation of the EGL API
 
