@@ -8,8 +8,8 @@ activate_driver_for_core_rev()
 	SGX_CORE_REV=$1
 	# create links required for mesa; will get cleaned later in the
 	# script in case they're dangling
-	ln -fs libGLESv2.so /usr/lib/libGLESv2.so.2
-	ln -fs libGLES_CM.so /usr/lib/libGLES_CM.so.1
+	ln -vfs libGLESv2.so /usr/lib/libGLESv2.so.2
+	ln -vfs libGLES_CM.so /usr/lib/libGLES_CM.so.1
 
 	for LIB in \
 		libpvrPVR2D_FLIPWSEGL \
@@ -29,17 +29,17 @@ activate_driver_for_core_rev()
 		libGLES_CM; do
 		# Point the link at the correct library
 		if [ "$(readlink /usr/lib/$LIB.so)" != "$(basename ${LIB}_r${SGX_CORE_REV}.so)" ]; then
-			ln -fs "$(basename ${LIB}_r${SGX_CORE_REV}.so)" "/usr/lib/$LIB.so"
+			ln -vfs "$(basename ${LIB}_r${SGX_CORE_REV}.so)" "/usr/lib/$LIB.so"
 		fi
 		# Delete the unneeded libraries
 		for LIBFILE in /usr/lib/${LIB}_r*.so; do
 			if [ "$(basename $(readlink /usr/lib/$LIB.so))" != "$(basename $LIBFILE)" ]; then
-				rm -f "$LIBFILE"
+				rm -vf "$LIBFILE"
 			fi
 		done
 		# Delete stale symlinks
 		if [ \( -L "/usr/lib/$LIB.so" \) -a ! -f "/usr/lib/$LIB.so" ]; then
-			rm -f "/usr/lib/$LIB.so"
+			rm -vf "/usr/lib/$LIB.so"
 		fi
 	done
 
@@ -47,7 +47,7 @@ activate_driver_for_core_rev()
 		# Delete the unneeded binaries
 		for BINFILE in /usr/sbin/${BIN}_r*; do
 			if [ "$(basename $BINFILE)" != "${BIN}_r${SGX_CORE_REV}" ]; then
-				rm -f "$BINFILE"
+				rm -vf "$BINFILE"
 			fi
 		done
 	done
@@ -88,7 +88,7 @@ fi
 if [ "$(readlink /usr/lib/sgx/libEGL-sgx.so)" != "libEGL-sgx_r${SGX_CORE_REV}.so" -o \
      -e /var/lib/opengles-sgx-img/upgrade ]; then
 	activate_driver_for_core_rev $SGX_CORE_REV
-	rm -rf /var/lib/opengles-sgx-img
+	rm -vrf /var/lib/opengles-sgx-img
 fi
 
 if [ "$1" != "--force" ]; then

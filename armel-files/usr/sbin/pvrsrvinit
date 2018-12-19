@@ -22,12 +22,12 @@ activate_driver_for_core_rev()
 		libGLES_CM; do
 		# Point the link at the correct library
 		if [ "$(readlink /usr/lib/$LIB.so)" != "${LIB}_r${SGX_CORE_REV}.so" ]; then
-			ln -fs "${LIB}_r${SGX_CORE_REV}.so" "/usr/lib/$LIB.so"
+			ln -vfs "${LIB}_r${SGX_CORE_REV}.so" "/usr/lib/$LIB.so"
 		fi
 		# Delete the unneeded libraries
 		for LIBFILE in /usr/lib/${LIB}_r*.so; do
 			if [ "$(readlink /usr/lib/$LIB.so)" != "$(basename $LIBFILE)" ]; then
-				rm -f "$LIBFILE"
+				rm -vf "$LIBFILE"
 			fi
 		done
 	done
@@ -36,7 +36,7 @@ activate_driver_for_core_rev()
 		# Delete the unneeded binaries
 		for BINFILE in /usr/sbin/${BIN}_r*; do
 			if [ "$(basename $BINFILE)" != "${BIN}_r${SGX_CORE_REV}" ]; then
-				rm -f "$BINFILE"
+				rm -vf "$BINFILE"
 			fi
 		done
 	done
