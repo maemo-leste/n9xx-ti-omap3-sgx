@@ -4,5 +4,5 @@
 rc-update add powervr sysinit
 
 if [ "$DEB_HOST_ARCH" = armhf ]; then
-	ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
+	ln -svnf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
 fi
