@@ -1,3 +1,9 @@
+n9xx-ti-omap3-sgx (1.4.269) unstable; urgency=medium
+
+  * Fix kernel module oops
+
+ -- Arthur D. <spinal.by@gmail.com>  Tue, 15 Jan 2019 02:08:24 +0300
+
 n9xx-ti-omap3-sgx (1.4.268) unstable; urgency=medium
 
   * Initial release
