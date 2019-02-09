@@ -8,6 +8,10 @@ depend() {
 }
 
 start() {
+    # Fix kernel oops by locking cpu frequency
+    # https://github.com/maemo-leste/bugtracker/issues/212
+    GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+    echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     ebegin "Modprobing pvrsrvkm"
     modprobe pvrsrvkm
     sleep 2
@@ -20,6 +24,7 @@ start() {
     ebegin "Changing permissions"
     chown root:video /dev/pvrsrvkm
     chmod 660 /dev/pvrsrvkm
+    echo $GOVERNOR > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 }
 
 stop() {
